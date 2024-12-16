@@ -42,10 +42,6 @@ const getCurrentSUI = async (address) => {
   return res;
 };
 
-const address_list = [
-  "0xf381b14c813dc5896395e9a34bba77fe6d9262d921be09d0fe9bf05425c4faba",
-];
-
 const faucet = async (address, count) => {
   const ip = await getIPAddress();
   const totalSUI = await getCurrentSUI(address);
@@ -80,7 +76,7 @@ const faucet = async (address, count) => {
 };
 
 const execute = async () => {
-  await Promise.all(address_list.map((a) => faucet(a, 3)));
+  faucet(process.env.WALLET_ADDRESS, 3);
 };
 
 execute();
