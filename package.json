@@ -5,7 +5,7 @@
   "type": "commonjs",
   "main": "cron.js",
   "scripts": {
-    "serve": "node cron.js",
+    "serve": "node server.js",
     "daemon": "pm2 start ecosystem.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.9",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
   }
 }
