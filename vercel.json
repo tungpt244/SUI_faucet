@@ -1,0 +1,4 @@
+{
+    "packageManager": "pnpm@9.5.0",
+    "buildCommand": "pmpm install && pnpm serve"
+}
