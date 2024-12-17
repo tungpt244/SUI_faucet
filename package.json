@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "esbuild cron.js --bundle --platform=node --outfile=dist/index.js",
+    "build": "esbuild server.js --bundle --platform=node --outfile=dist/index.js",
     "serve": "node server.js",
     "daemon": "pm2 start ecosystem.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
