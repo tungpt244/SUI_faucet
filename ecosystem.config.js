@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "SUI faucet",
-      script: "cron.js",
+      script: "server.js",
       args: "limit",
     },
   ],

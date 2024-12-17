@@ -2,9 +2,9 @@
   "name": "sui_faucet",
   "version": "1.0.0",
   "description": "",
-  "type": "commonjs",
-  "main": "cron.js",
+  "main": "server.js",
   "scripts": {
+    "build": "esbuild cron.js --bundle --platform=node --outfile=out.js",
     "serve": "node server.js",
     "daemon": "pm2 start ecosystem.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,8 @@
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
   }
 }

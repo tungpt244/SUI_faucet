@@ -18,46 +18,42 @@ function faucetSUI() {
     return data.ip;
   };
 
-  const getCurrentSUI = async (address) => {
-    const headers = {
-      "Content-Type": "application/json",
-      "client-sdk-type": "typescript",
-      "client-target-api-version": "1.40.0",
-      "client-request-method": "suix_getAllBalances",
-    };
-    const { data } = await axios.post(
-      "https://wallet-rpc.testnet.sui.io/",
-      {
-        jsonrpc: "2.0",
-        id: "2",
-        method: "suix_getAllBalances",
-        params: [address],
-      },
-      {
-        headers,
-      }
-    );
-    const _res = data.result.find((a) => a.coinType.match("0x2::"));
-    const res = Number(_res.totalBalance / 1000000000).toFixed(2);
+  // const getCurrentSUI = async (address) => {
+  //   const headers = {
+  //     "Content-Type": "application/json",
+  //     "client-sdk-type": "typescript",
+  //     "client-target-api-version": "1.40.0",
+  //     "client-request-method": "suix_getAllBalances",
+  //   };
+  //   const { data } = await axios.post(
+  //     "https://wallet-rpc.testnet.sui.io/",
+  //     {
+  //       jsonrpc: "2.0",
+  //       id: "2",
+  //       method: "suix_getAllBalances",
+  //       params: [address],
+  //     },
+  //     {
+  //       headers,
+  //     }
+  //   );
+  //   const _res = data.result.find((a) => a.coinType.match("0x2::"));
+  //   const res = Number(_res.totalBalance / 1000000000).toFixed(2);
 
-    return res;
-  };
+  //   return res;
+  // };
 
   const faucet = async (address, count) => {
     const ip = await getIPAddress();
-    const totalSUI = await getCurrentSUI(address);
 
     try {
-      await axios.post(
-        "https://faucet.testnet.sui.io/v1/gas",
-        JSON.stringify({
-          FixedAmountRequest: {
-            recipient: address,
-          },
-        })
-      );
+      await axios.post("https://faucet.testnet.sui.io/v1/gas", {
+        FixedAmountRequest: {
+          recipient: address,
+        },
+      });
 
-      const success_message = `✅ [${address}] - from ${ip} - ${new Date().toLocaleString()} - SUI: ${totalSUI}`;
+      const success_message = `✅ [${address}] - from ${ip} - ${new Date().toLocaleString()}`;
       await sendMessage(success_message);
       console.log(success_message);
       return;
@@ -67,22 +63,22 @@ function faucetSUI() {
         return;
       }
 
-      const error_message = `❗ [${address}] - from ${ip} - ${new Date().toLocaleString()} - SUI: ${totalSUI}`;
+      const error_message = `❗ [${address}] - from ${ip} - ${new Date().toLocaleString()}`;
       await sendMessage(error_message);
       console.error(error_message);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000 * 60));
+      await new Promise((resolve) => setTimeout(resolve, 1000 * 60 * 5));
       return faucet(address, count - 1);
     }
   };
 
   const execute = async () => {
-    faucet(process.env.WALLET_ADDRESS, 3);
+    faucet(process.env.WALLET_ADDRESS, 2);
   };
 
   execute();
 
-  setInterval(() => execute(), 1000 * 60 * 35);
+  setInterval(() => execute(), 1000 * 60 * 60);
 }
 
 faucetSUI();
