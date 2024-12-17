@@ -1,6 +1,6 @@
 {
   "buildCommand": "pnpm install && pnpm build",
-  "build": [
+  "builds": [
     { "src": "dist/index.js", "use": "@vercel/node" }
   ]
 }
