@@ -81,6 +81,4 @@ function faucetSUI() {
   setInterval(() => execute(), 1000 * 60 * 60);
 }
 
-faucetSUI();
-
 module.exports = faucetSUI;
